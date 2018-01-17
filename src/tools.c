@@ -62,3 +62,13 @@ void	valide(char **s)
 	if (check_size(s))
 		map_err();
 }
+
+void	init_image(t_map *store)
+{
+	t_img	*img;
+
+	img = &(store->img);
+	img->point = mlx_new_image(store->mlx, WD, HG);
+	img->data = mlx_get_data_addr(img->point, 
+						&(img->bits), &(img->size), &(img->end));
+}

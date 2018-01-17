@@ -26,10 +26,14 @@ int	main(int ac, char **av)
 		tmp = rfile(av[1], size);
 		x = cnt_rows(tmp);
 		y = cnt_clms(tmp[0]);
+		map = create_map(tmp, x, y);
 		create_window(map);
+		mid_cord(map);
+		move_mid(map);
 		draw_img(map);
-		mlx_expose_hook(map->win, exp_func, map);
-		mlx_hook(map->win, 2, 3, keyfunc, map);
+		mlx_destroy_image(map->mlx, map->img.point);
+		mlx_expose_hook(map->win, redr_f, map);
+		mlx_hook(map->win, 2, 3, key_hold, map);
 		mlx_loop(map->mlx);	
 	}
 	else

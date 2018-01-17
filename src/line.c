@@ -17,7 +17,7 @@ void	draw_ln(t_map *map, t_cord x1, t_cord x2)
 	t_line ln;
 
 	ln = line_param(x1, x2);
-	while (9)
+	while (1)
 	{
 		make_pxl(ln, &(map->img));
 		if (ln.x1 == ln.x2 && ln.y1 == ln.y2)

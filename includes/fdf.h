@@ -19,7 +19,7 @@
 # include <mlx.h>
 # include <stdio.h>
 
-# define STEP 5
+# define STEP 20
 # define WD 1000
 # define HG 1000
 
@@ -43,7 +43,7 @@ typedef	struct	s_img
 typedef	struct s_map
 {
 	t_img	img;
-	t_cord	*middle;
+	t_cord	*mid;
 	t_cord	**tab;
 	int		x;
 	int		y;
@@ -67,6 +67,9 @@ typedef	struct 	s_line
 	
 }				t_line;
 
+void			move_mid(t_map *map);
+void			move_abs(t_map *map, int step);
+void			move_ord(t_map *map, int step);
 void			create_window(t_map *store);
 void			map_err(void);
 void			draw_img(t_map *src);
@@ -74,11 +77,18 @@ void			error_imput(void);
 void			build_image(t_map *fill);
 void			valide(char **s);
 void			make_pxl(t_line ln, t_img *img);
+void			draw_ln(t_map *map, t_cord x1, t_cord x2);
+void			mid_cord(t_map *map);
+void			redraw(t_map *map);
+void			get_data(t_map *field);
+void			init_image(t_map *store);
 
 int				cnt_rows(char **s);
 int				cnt_clms(char *s);
 int				check_size(char **s);
 int				size_fill(char *s);
+int				redr_f(t_map *map);
+int				key_hold(int key, t_map *map);
 
 char 			**rfile(char *s, int size);
 char			**split_arr(char *str);
