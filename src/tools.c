@@ -56,6 +56,7 @@ int	check_size(char **s)
 	return (0);
 }
 
+
 void	valide(char **s)
 {
 	if (check_size(s))

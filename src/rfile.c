@@ -20,7 +20,7 @@ int		size_fill(char *s)
 
 	i = 0;
 	fd = open(s, O_RDONLY);
-	while (ft_get_next_line(fd, &line) > 0)
+	while (ft_next_line(fd, &line) > 0)
 		i++;
 	close(fd);
 	free(line);
@@ -36,7 +36,7 @@ char 	**rfile(char *s, int size)
 	i = 0;
 	fd = open(s, O_RDONLY);
 	buff = (char**)malloc(sizeof(char*) * size + 1);
-	while (ft_get_next_line(fd, &line) > 0)
+	while (ft_next_line(fd, &line) > 0)
 	{
 		buff[i] = ft_strdup(line);
 		i++;

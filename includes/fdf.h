@@ -16,7 +16,8 @@
 # include "../libft/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
-# include "mlx.h"
+# include <mlx.h>
+# include <stdio.h>
 
 # define STEP 5
 # define WD 1000
@@ -47,7 +48,8 @@ typedef	struct	s_img
 
 typedef	struct s_map
 {
-	t_cord	middle;
+	t_img	img;
+	t_cord	*middle;
 	t_cord	**tab;
 	int		x;
 	int		y;
@@ -55,21 +57,42 @@ typedef	struct s_map
 	void	*win;
 }				t_map;
 
-int				closef(int keycode);
-int				fill_manip(int keycode, t_fdf *oper, t_cord *cor);
-void			build_image(t_fdf *fill);
-char 			**rfile(char *s, int size);
+typedef	struct 	s_line
+{
+	int		x1;
+	int		y1;
+	int		x2;
+	int		y2;	
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		err2;
+	int		clr;
+	
+}				t_line;
+
 void			map_err(void);
 void			error_imput(void);
-t_cord			new_cord(int j, int i, char *s);
-t_map			*map_alloc(char **tab, int x, int y);
-int				ft_atoi_base(char *str, int base);
-int				size_fill(char *s);
-char			**split_arr(char *str);
-t_map			*create_map(char **tab, int x, int y);
+void			build_image(t_fdf *fill);
+void			valide(char **s);
+void			make_pxl(t_line ln, t_img *img);
+
+int				closef(int keycode, t_fdf *mlx);
+int				fill_manip(int keycode, t_fdf *oper, t_cord *cor);
 int				cnt_rows(char **s);
 int				cnt_clms(char *s);
 int				check_size(char **s);
-void			valide(char **s);
+int				ft_atoi_base(char *str, int base);
+int				size_fill(char *s);
+
+char 			**rfile(char *s, int size);
+char			**split_arr(char *str);
+
+t_cord			new_cord(int j, int i, char *s);
+t_map			*map_alloc(int x, int y);
+t_map			*create_map(char **tab, int x, int y);
+t_line			line_param(t_cord c_1 , t_cord c_2);
 
 #endif

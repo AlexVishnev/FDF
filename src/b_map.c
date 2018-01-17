@@ -12,28 +12,6 @@
 
 #include "fdf.h"
 
-static	char	*kostyl(char *s)
-{
-	char	*a;
-	char	*color;
-
-	color = "0xFFFFFF";
-	if (!(a = ft_strchr(s, ',')))
-		return (color);
-	return (++a);
-}
-
-t_cord			new_cord(int x, int y, char *s)
-{
-	t_cord	c;
-
-	c.col = ft_atoi_base(kostyl(s), 16);
-	c.z = ft_atoi(s);
-	c.x = x;
-	c.y = y;
-	return (c);
-}
-
 t_map			*map_alloc(int x, int y)
 {
 	t_map	*map;
