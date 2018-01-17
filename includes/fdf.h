@@ -23,18 +23,12 @@
 # define WD 1000
 # define HG 1000
 
-typedef struct	s_fdf
-{
-	int		fd;
-	int		key;
-}				t_fdf;
-
 typedef	struct	s_cord
 {
-	int		x;
-	int		y;
-	int		z;
-	int		col;
+	double		x;
+	double		y;
+	double		z;
+	double		col;
 }				t_cord;
 
 typedef	struct	s_img
@@ -73,18 +67,17 @@ typedef	struct 	s_line
 	
 }				t_line;
 
+void			create_window(t_map *store);
 void			map_err(void);
+void			draw_img(t_map *src);
 void			error_imput(void);
-void			build_image(t_fdf *fill);
+void			build_image(t_map *fill);
 void			valide(char **s);
 void			make_pxl(t_line ln, t_img *img);
 
-int				closef(int keycode, t_fdf *mlx);
-int				fill_manip(int keycode, t_fdf *oper, t_cord *cor);
 int				cnt_rows(char **s);
 int				cnt_clms(char *s);
 int				check_size(char **s);
-int				ft_atoi_base(char *str, int base);
 int				size_fill(char *s);
 
 char 			**rfile(char *s, int size);

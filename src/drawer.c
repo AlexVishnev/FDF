@@ -22,7 +22,7 @@ void	init_image(t_map *store)
 						&(img->bits), &(img->size), &(img->end));
 }
 
-void	init_window(t_map *store)
+void	create_window(t_map *store)
 {
 	store->mlx = mlx_init();
 	store->win = mlx_new_window(store->mlx, WD, HG, "Fdf");

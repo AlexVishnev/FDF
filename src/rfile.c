@@ -32,6 +32,7 @@ char 	**rfile(char *s, int size)
 	char	**buff;
 	int		fd;
 	int		i;
+	char	*line;
 
 	i = 0;
 	fd = open(s, O_RDONLY);

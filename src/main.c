@@ -18,12 +18,19 @@ int	main(int ac, char **av)
 	int		x;
 	int		y;
 	int		size;
-	t_map	*fill;
+	t_map	*map;
+
 	if (ac == 2)
 	{
 		size = size_fill(av[1]);
 		tmp = rfile(av[1], size);
-		build_image(fill);
+		x = cnt_rows(tmp);
+		y = cnt_clms(tmp[0]);
+		create_window(map);
+		draw_img(map);
+		mlx_expose_hook(map->win, exp_func, map);
+		mlx_hook(map->win, 2, 3, keyfunc, map);
+		mlx_loop(map->mlx);	
 	}
 	else
 		error_imput();

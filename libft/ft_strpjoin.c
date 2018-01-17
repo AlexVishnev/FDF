@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_strmod(char *a, char *b)
+char	*ft_strpjoin(char *a, char *b)
 {
 	char	*ret;
 

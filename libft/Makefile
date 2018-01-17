@@ -6,7 +6,7 @@
 #    By: avishnev <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/06 15:52:45 by avishnev          #+#    #+#              #
-#    Updated: 2017/11/06 15:59:24 by avishnev         ###   ########.fr        #
+#    Updated: 2018/01/17 14:10:36 by avishnev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ $(OBJ): $(FILES)
 	@echo "<<<<<<<<<<<<<<<<<<<--LIBFT_COMPILED-->>>>>>>>>>>>>>>>>>>>"
 clean:
 	@rm -f $(OBJ)
+	@echo "<<<<<<<<<<<<<<<<<<<--Cleaning_Succes-->>>>>>>>>>>>>>>>>>>"
 fclean: clean
 	@rm -f $(NAME)
 re: fclean all
