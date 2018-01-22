@@ -84,10 +84,12 @@ void			get_data(t_map *field);
 void			init_image(t_map *store);
 void			zoom_map(t_map *map, double zoom);
 void			key_zoom(int key, t_map *map);
+void			rotate(t_map *map, int key);
 
 int				check_size(char **s);
 int				redr_f(t_map *map);
 int				key_hold(int key, t_map *map);
+void 			key_rot(int key, t_map *map);
 
 size_t			size_fill(char *s);
 size_t			cnt_rows(char **s);
@@ -97,6 +99,9 @@ char 			**rfile(char *s);
 char			**split_arr(char *str);
 
 t_cord			new_cord(char *s, int x, int y);
+t_cord			rot_x(t_cord *p, t_cord *mid, int var);
+t_cord			rot_y(t_cord *p, t_cord *mid, int var);
+t_cord			rot_z(t_cord *p, t_cord *mid, int var);
 t_map			*map_alloc(size_t x, size_t y);
 t_map			*create_map(char **tab, size_t x, size_t y);
 t_line			line_param(t_cord c_1 , t_cord c_2);

@@ -44,7 +44,6 @@ t_cord	rot_x(t_cord *p, t_cord *mid, int var)
 	p->y -= mid->y;
 	corner = var * 3.14159 / 180;
 	tmp.x = p->x;
-	tmp.x = p->x;
 	tmp.y = p->y * cos(corner) + p->z * sin(corner);
 	tmp.z = (-(p->y) * sin(corner)) + p->z * cos(corner);
 	tmp.col = p->col;
@@ -61,10 +60,9 @@ t_cord	rot_y(t_cord *p, t_cord *mid, int var)
 	p->x -= mid->x;
 	p->y -= mid->y;
 	corner = var * 3.14159 / 180;
-	tmp.x = p->x;
-	tmp.x = p->x;
-	tmp.y = p->y * cos(corner) + p->z * sin(corner);
-	tmp.z = (-(p->y) * sin(corner)) + p->z * cos(corner);
+	tmp.x = p->x * cos(corner) + p->z * sin(corner);
+	tmp.y = p->y;
+	tmp.z = (-(p->x) * sin(corner)) + p->z * cos(corner);
 	tmp.col = p->col;
 	tmp.x += mid->x;
 	tmp.y += mid->y;
@@ -79,10 +77,9 @@ t_cord	rot_z(t_cord *p, t_cord *mid, int var)
 	p->x -= mid->x;
 	p->y -= mid->y;
 	corner = var * 3.14159 / 180;
-	tmp.x = p->x;
-	tmp.x = p->x;
-	tmp.y = p->y * cos(corner) + p->z * sin(corner);
-	tmp.z = (-(p->y) * sin(corner)) + p->z * cos(corner);
+	tmp.x = p->x * cos(corner) - p->y * sin(corner);
+	tmp.y = p->x * sin(corner) + p->y * cos(corner);
+	tmp.z = p->z;
 	tmp.col = p->col;
 	tmp.x += mid->x;
 	tmp.y += mid->y;

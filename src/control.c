@@ -29,7 +29,39 @@ void	key_move(int key, t_map *map)
 	if (key == 125)
 		move_ord(map, STEP);
 }
+void	rotate(t_map *map, int key)
+{
+	size_t	i;
+	size_t	j;
 
+	i = 0;
+	while (i < map->x)
+	{
+		j = 0;
+		while (j < map->y)
+		{
+			if (key == 10)
+				map->tab[i][j] = rot_x(&map->tab[i][j], map->mid, 10);
+			else if (key == 12)
+				map->tab[i][j] = rot_x(&map->tab[i][j], map->mid, -10);
+			else if (key == 13)
+				map->tab[i][j] = rot_y(&map->tab[i][j], map->mid, 10);
+			else if (key == 14)
+				map->tab[i][j] = rot_y(&map->tab[i][j], map->mid, -10);
+			else if (key == 15)
+				map->tab[i][j] = rot_z(&map->tab[i][j], map->mid, 10);
+			else if (key == 16)
+				map->tab[i][j] = rot_z(&map->tab[i][j], map->mid, -10);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	key_rot(int key, t_map *map)
+{
+	rotate(map, key);
+}
 int		key_hold(int key, t_map *map)
 {
 	mid_cord(map);
@@ -38,6 +70,7 @@ int		key_hold(int key, t_map *map)
 		mlx_destroy_image(map->mlx, map->img.point);
 		exit(0);
 	}
+	key_rot(key, map);
 	key_move(key, map);
 	key_zoom(key, map);
 	redraw(map);
