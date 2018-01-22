@@ -12,11 +12,11 @@
 
 #include "fdf.h"
 
-int		size_fill(char *s)
+size_t		size_fill(char *s)
 {
 	int		fd;
 	char	*line;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	fd = open(s, O_RDONLY);
@@ -27,13 +27,15 @@ int		size_fill(char *s)
 	return (i);
 }
 
-char 	**rfile(char *s, int size)
+char 	**rfile(char *s)
 {
 	char	**buff;
 	int		fd;
-	int		i;
 	char	*line;
+	size_t	size;
+	size_t	i;
 
+	size = size_fill(s);
 	i = 0;
 	fd = open(s, O_RDONLY);
 	buff = (char**)malloc(sizeof(char*) * size + 1);

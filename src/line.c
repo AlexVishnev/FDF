@@ -23,12 +23,12 @@ void	draw_ln(t_map *map, t_cord x1, t_cord x2)
 		if (ln.x1 == ln.x2 && ln.y1 == ln.y2)
 			break ;
 		ln.err2 = ln.err * 2;
-		if (ln.dx > ln.err2)
-		{
-			ln.err += ln.dx;
-			ln.y1 += ln.sy;
-		}
 		if (ln.dy < ln.err2)
+		{
+			ln.err += ln.dy;
+			ln.x1 += ln.sx;
+		}
+		if (ln.dx > ln.err2)
 		{
 			ln.err += ln.dx;
 			ln.y1 += ln.sy;
@@ -41,8 +41,8 @@ t_line	line_param(t_cord c_1 , t_cord c_2)
 	t_line ln;
 
 	ln.x1 = c_1.x;
-	ln.x2 = c_2.x;
 	ln.y1 = c_1.y;
+	ln.x2 = c_2.x;
 	ln.y2 = c_2.y;
 	ln.dx = abs(ln.x2 - ln.x1);
 	ln.dy = -abs(ln.y2 - ln.y1);

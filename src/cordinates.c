@@ -15,33 +15,32 @@
 static	char	*kostyl(char *s)
 {
 	char	*a;
-	char	*color;
 
-	color = "0xFFFFFF";
 	if (!(a = ft_strchr(s, ',')))
-		return (color);
+		return ("0xFFFFFF");
 	return (++a);
 }
 
-t_cord			new_cord(int x, int y, char *s)
+t_cord			new_cord(char *s, int x, int y)
 {
 	t_cord	c;
 
-	c.col = ft_atoi_base(kostyl(s), 16);
-	c.z = ft_atoi(s);
 	c.x = x;
 	c.y = y;
+	c.z = ft_atoi(s);
+	c.col = ft_atoi_base(kostyl(s), 16);
 	return (c);
 }
 
-void		mid_cord(t_map *map)
+void			mid_cord(t_map *map)
 {
 	int	ln_x;
 	int	ln_y;
 
-	map->mid = (t_cord *)malloc(sizeof(t_cord));
+	if (!(map->mid = (t_cord *)malloc(sizeof(t_cord))))
+		return ;
 	ln_x = map->x - 1;
 	ln_y = map->y - 1;
 	map->mid->x = (map->tab[ln_x][ln_y].x + map->tab[0][0].x)/ 2;
-	map->mid->x = (map->tab[ln_x][ln_y].y + map->tab[0][0].y)/ 2;
+	map->mid->y = (map->tab[ln_x][ln_y].y + map->tab[0][0].y)/ 2;
 }

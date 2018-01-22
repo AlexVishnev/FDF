@@ -12,37 +12,37 @@
 
 #include "fdf.h"
 
-int		cnt_rows(char **s)
+size_t		cnt_rows(char **s)
 {
-	int	cnt;
+	size_t	x;
 
-	cnt = 0;
-	while (s[cnt])
-		cnt++;
-	return (cnt);
+	x = 0;
+	while (s[x])
+		x++;
+	return (x);
 }
 
-int		cnt_clms(char *s)
+size_t		cnt_clms(char *s)
 {
 	char 	**tmp;
-	int		clms;
+	size_t	y;
 	
 	tmp = ft_strsplit(s, ' ');
-	clms = 0;
-	while (tmp[clms])
+	y = 0;
+	while (tmp[y])
 	{
-		free(tmp[clms]);
-		clms++;
+		free(tmp[y]);
+		y++;
 	}
 	free(tmp);
-	return (clms);
+	return (y);
 }
 
 int	check_size(char **s)
 {
-	int	i;
-	int	s0;
-	int	s1;
+	size_t	i;
+	size_t	s0;
+	size_t	s1;
 
 	i = 0;
 	s0 = cnt_clms(s[0]);

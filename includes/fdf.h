@@ -20,8 +20,8 @@
 # include <stdio.h>
 
 # define STEP 20
-# define WD 1000
-# define HG 1000
+# define WD 1200
+# define HG 800
 
 typedef	struct	s_cord
 {
@@ -45,8 +45,8 @@ typedef	struct s_map
 	t_img	img;
 	t_cord	*mid;
 	t_cord	**tab;
-	int		x;
-	int		y;
+	size_t	x;
+	size_t	y;
 	void	*mlx;
 	void	*win;
 }				t_map;
@@ -82,20 +82,23 @@ void			mid_cord(t_map *map);
 void			redraw(t_map *map);
 void			get_data(t_map *field);
 void			init_image(t_map *store);
+void			zoom_map(t_map *map, double zoom);
+void			key_zoom(int key, t_map *map);
 
-int				cnt_rows(char **s);
-int				cnt_clms(char *s);
 int				check_size(char **s);
-int				size_fill(char *s);
 int				redr_f(t_map *map);
 int				key_hold(int key, t_map *map);
 
-char 			**rfile(char *s, int size);
+size_t			size_fill(char *s);
+size_t			cnt_rows(char **s);
+size_t			cnt_clms(char *s);
+
+char 			**rfile(char *s);
 char			**split_arr(char *str);
 
-t_cord			new_cord(int j, int i, char *s);
-t_map			*map_alloc(int x, int y);
-t_map			*create_map(char **tab, int x, int y);
+t_cord			new_cord(char *s, int x, int y);
+t_map			*map_alloc(size_t x, size_t y);
+t_map			*create_map(char **tab, size_t x, size_t y);
 t_line			line_param(t_cord c_1 , t_cord c_2);
 
 #endif

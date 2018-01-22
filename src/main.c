@@ -14,16 +14,14 @@
 
 int	main(int ac, char **av)
 {
-	char	**tmp;
-	int		x;
-	int		y;
-	int		size;
-	t_map	*map;
+	char		**tmp;
+	size_t		x;
+	size_t		y;
+	t_map		*map;
 
 	if (ac == 2)
 	{
-		size = size_fill(av[1]);
-		tmp = rfile(av[1], size);
+		tmp = rfile(av[1]);
 		x = cnt_rows(tmp);
 		y = cnt_clms(tmp[0]);
 		map = create_map(tmp, x, y);
@@ -34,9 +32,9 @@ int	main(int ac, char **av)
 		mlx_destroy_image(map->mlx, map->img.point);
 		mlx_expose_hook(map->win, redr_f, map);
 		mlx_hook(map->win, 2, 3, key_hold, map);
-		mlx_loop(map->mlx);	
+		mlx_loop(map->mlx);
 	}
 	else
 		error_imput();
-	return(0);
+	return (0);
 }

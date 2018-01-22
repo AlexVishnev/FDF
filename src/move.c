@@ -14,8 +14,8 @@
 
 void	move_abs(t_map *map, int step)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (i < map->x)
@@ -34,8 +34,8 @@ void	move_abs(t_map *map, int step)
 
 void	move_ord(t_map *map, int step)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (i < map->x)
@@ -54,8 +54,8 @@ void	move_ord(t_map *map, int step)
 
 void	move_mid(t_map *map)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	j = HG / 2 - map->mid->y;
 	i = WD / 2 - map->mid->x;

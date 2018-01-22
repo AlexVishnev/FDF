@@ -38,5 +38,24 @@ int		key_hold(int key, t_map *map)
 		mlx_destroy_image(map->mlx, map->img.point);
 		exit(0);
 	}
+	key_move(key, map);
+	key_zoom(key, map);
+	redraw(map);
 	return (0);
+}
+
+void	key_zoom(int key, t_map *map)
+{
+	static size_t	i;
+
+	if (key == 69)
+	{
+		zoom_map(map, 2);
+		i++;
+	}
+	else if (key == 78 && i > 0)
+	{
+		zoom_map(map, 0.5);
+		i--;
+	}
 }

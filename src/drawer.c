@@ -26,30 +26,38 @@ void	make_pxl(t_line ln, t_img *img)
 	size = 4 * WD * HG;
 	byte = (ln.y1) * img->size + (ln.x1) * 4;
 
-	if (byte >= size || ln.x1 > WD - 1 || ln.x1 < 0)
+	if ( byte <= 0 || byte >= size || ln.x1 > WD - 1 || ln.x1 < 0)
 		return ;
 	img->data[byte] = ln.clr;
-	byte++;
-	img->data[byte] = ln.clr >> 8;
-	byte++;
-	img->data[byte] = ln.clr >> 16;
+	img->data[++byte] = ln.clr >> 8;
+	img->data[++byte] = ln.clr >> 16;
 }
 
-void	get_data(t_map *field)
+void	get_data(t_map *map)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
+	double tmp, tmp1, tmp3;
 	i = 0;
-	while (i < field->x)
+	while (i < map->x)
 	{
 		j = 0;
-		while (j < field->y)
+		while (j < map->y)
 		{
-			if (j < field->y - 1)
-				draw_ln(field, field->tab[i][j], field->tab[i][j + 1]);
-			if (i < field->x - 1)
-				draw_ln(field, field->tab[i][j], field->tab[i + 1][j]);
+			if (j < map->y - 1)
+			{
+				draw_ln(map, map->tab[i][j], map->tab[i][j + 1]);
+				tmp = map->tab[i][j].x;
+				printf("value = %f\n%s\n", tmp,"xLINE WAS drawed");
+			}
+			if (i < map->x - 1)
+			{
+				draw_ln(map, map->tab[i][j], map->tab[i + 1][j]);
+				tmp1 = map->tab[i][j].y;
+				tmp3 = map->tab[i][j].z;
+				printf("Z____cord = %f\nvalue = %f\n%s\n",tmp3, tmp1,"yLINE WAS drawed");
+			}
 			j++;
 		}
 		i++;
@@ -59,19 +67,19 @@ void	get_data(t_map *field)
 void	draw_img(t_map *src)
 {
 	init_image(src);
-	get_data(src);	
-	mlx_put_image_to_window(src->mlx, src->win, src->img.point, 0, 0); // how last params works ?
+	get_data(src);
+	mlx_put_image_to_window(src->mlx, src->win, src->img.point, 0, 0);
 }
 
-void	redraw(t_map *map)
+void	redraw(t_map *src)
 {
 	t_img *image;
 
-	image = &(map->img);
-	image->point = mlx_new_image(map->mlx, WD, HG);
+	image = &(src->img);
+	image->point = mlx_new_image(src->mlx, WD, HG);
 	image->data = mlx_get_data_addr(image->point, &(image->bits),
 										 &(image->size), &(image->end));
-	draw_img(map);
-	mlx_put_image_to_window(map->mlx, map->win, map->img.point, 0, 0);
-	mlx_destroy_image(map->mlx, map->img.point); 
+	draw_img(src);
+	mlx_put_image_to_window(src->mlx, src->win, src->img.point, 0, 0);
+	mlx_destroy_image(src->mlx, src->img.point); 
 }
