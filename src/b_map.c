@@ -31,14 +31,6 @@ t_map			*map_alloc(size_t x, size_t y)
 	return (map);
 }
 
-char			**split_arr(char *str)
-{
-	char	**s;
-
-	s = ft_strsplit(str, ' ');
-	return (s);
-}
-
 t_map			*create_map(char **tab, size_t x, size_t y)
 {
 	t_map		*map;
@@ -51,7 +43,7 @@ t_map			*create_map(char **tab, size_t x, size_t y)
 	while (i < x)
 	{
 		j = 0;
-		buff = split_arr(tab[i]);
+		buff = ft_split_arr(tab[i], ' ');
 		while (j < y)
 		{
 			map->tab[i][j] = new_cord(buff[j], i, j);
