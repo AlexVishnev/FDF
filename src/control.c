@@ -29,6 +29,7 @@ void	key_move(int key, t_map *map)
 	if (key == 125)
 		move_ord(map, STEP);
 }
+
 void	rotate(t_map *map, int key)
 {
 	size_t	i;
@@ -62,6 +63,7 @@ void	key_rot(int key, t_map *map)
 {
 	rotate(map, key);
 }
+
 int		key_hold(int key, t_map *map)
 {
 	mid_cord(map);

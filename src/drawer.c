@@ -49,14 +49,14 @@ void	get_data(t_map *map)
 			{
 				draw_ln(map, map->tab[i][j], map->tab[i][j + 1]);
 				tmp = map->tab[i][j].x;
-				printf("value = %f\n%s\n", tmp,"xLINE WAS drawed");
+				printf("value = %f\n", tmp);
 			}
 			if (i < map->x - 1)
 			{
 				draw_ln(map, map->tab[i][j], map->tab[i + 1][j]);
 				tmp1 = map->tab[i][j].y;
 				tmp3 = map->tab[i][j].z;
-				printf("Z____cord = %f\nvalue = %f\n%s\n",tmp3, tmp1,"yLINE WAS drawed");
+				printf("Z____cord = %f\nvalue = %f\n%s\n",tmp3, tmp1);
 			}
 			j++;
 		}
