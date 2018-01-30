@@ -28,6 +28,7 @@ void	key_move(int key, t_map *map)
 		move_ord(map, -STEP);
 	if (key == 125)
 		move_ord(map, STEP);
+	// if key == 
 }
 
 void	rotate(t_map *map, int key)
@@ -41,18 +42,18 @@ void	rotate(t_map *map, int key)
 		j = 0;
 		while (j < map->y)
 		{
-			if (key == 10)
-				map->tab[i][j] = rot_x(&map->tab[i][j], map->mid, 10);
-			else if (key == 12)
-				map->tab[i][j] = rot_x(&map->tab[i][j], map->mid, -10);
-			else if (key == 13)
-				map->tab[i][j] = rot_y(&map->tab[i][j], map->mid, 10);
-			else if (key == 14)
-				map->tab[i][j] = rot_y(&map->tab[i][j], map->mid, -10);
-			else if (key == 15)
-				map->tab[i][j] = rot_z(&map->tab[i][j], map->mid, 10);
-			else if (key == 16)
-				map->tab[i][j] = rot_z(&map->tab[i][j], map->mid, -10);
+			if (key == 91)
+				map->tab[i][j] = rot_x(&map->tab[i][j], map->mid, STEP);
+			else if (key == 84)
+				map->tab[i][j] = rot_x(&map->tab[i][j], map->mid, -STEP);
+			else if (key == 88)
+				map->tab[i][j] = rot_y(&map->tab[i][j], map->mid, STEP);
+			else if (key == 86)
+				map->tab[i][j] = rot_y(&map->tab[i][j], map->mid, -STEP);
+			else if (key == 85)
+				map->tab[i][j] = rot_z(&map->tab[i][j], map->mid, STEP);
+			else if (key == 83)
+				map->tab[i][j] = rot_z(&map->tab[i][j], map->mid, -STEP);
 			j++;
 		}
 		i++;
@@ -85,7 +86,7 @@ void	key_zoom(int key, t_map *map)
 
 	if (key == 69)
 	{
-		zoom_map(map, 2);
+		zoom_map(map, 1.5);
 		i++;
 	}
 	else if (key == 78 && i > 0)

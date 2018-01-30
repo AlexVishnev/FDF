@@ -22,10 +22,12 @@ t_map			*map_alloc(size_t x, size_t y)
 		return (NULL);
 	map->x = x;
 	map->y = y;
-	map->tab = (t_cord **)malloc(sizeof(t_cord *) * x);
+	if (!(map->tab = (t_cord **)malloc(sizeof(t_cord *) * x))) //change here
+		return (NULL);
 	while (i < x)
 	{
-		map->tab[i] = (t_cord*)malloc(sizeof(t_cord) * y);
+		if (!(map->tab[i] = (t_cord*)malloc(sizeof(t_cord) * y))) // and here
+			return (NULL);
 		i++;
 	}
 	return (map);

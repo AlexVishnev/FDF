@@ -43,6 +43,7 @@ char 	**rfile(char *s)
 	{
 		buff[i] = ft_strdup(line);
 		i++;
+		free(line);
 	}
 	buff[i] = NULL;
 	close(fd);

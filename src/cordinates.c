@@ -37,10 +37,11 @@ void			mid_cord(t_map *map)
 	int	ln_x;
 	int	ln_y;
 
-	if (!(map->mid = (t_cord *)malloc(sizeof(t_cord))))
-		return ;
+	// if(!(map->mid = (t_cord *)malloc(sizeof(t_cord))))
+	// 	return ;
 	ln_x = map->x - 1;
 	ln_y = map->y - 1;
+	map->mid = (t_cord *)malloc(sizeof(t_cord));
 	map->mid->x = (map->tab[ln_x][ln_y].x + map->tab[0][0].x)/ 2;
 	map->mid->y = (map->tab[ln_x][ln_y].y + map->tab[0][0].y)/ 2;
 }

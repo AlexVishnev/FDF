@@ -6,11 +6,16 @@
 /*   By: avishnev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 16:03:41 by avishnev          #+#    #+#             */
-/*   Updated: 2018/01/11 16:14:22 by avishnev         ###   ########.fr       */
+/*   Updated: 2018/01/30 17:03:43 by avishnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	valide_map()
+{
+
+}
 
 void	map_err(void)
 {

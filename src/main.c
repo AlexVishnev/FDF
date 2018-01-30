@@ -36,5 +36,6 @@ int	main(int ac, char **av)
 	}
 	else
 		error_imput();
+	system("leaks fdf");
 	return (0);
 }

@@ -36,19 +36,19 @@ void	draw_ln(t_map *map, t_cord x1, t_cord x2)
 	}
 }
 
-t_line	line_param(t_cord c_1 , t_cord c_2)
+t_line	line_param(t_cord x_1 , t_cord x_2)
 {
 	t_line ln;
 
-	ln.x1 = c_1.x;
-	ln.y1 = c_1.y;
-	ln.x2 = c_2.x;
-	ln.y2 = c_2.y;
+	ln.x1 = x_1.x;
+	ln.y1 = x_1.y;
+	ln.x2 = x_2.x;
+	ln.y2 = x_2.y;
 	ln.dx = abs(ln.x2 - ln.x1);
 	ln.dy = -abs(ln.y2 - ln.y1);
 	ln.sx = ln.x1 < ln.x2 ? 1 : -1;
 	ln.sy = ln.y1 < ln.y2 ? 1 : -1;
 	ln.err = ln.dx + ln.dy;
-	ln.clr = c_2.col;
+	ln.clr = x_2.col;
 	return (ln);
 }

@@ -31,9 +31,10 @@ size_t		cnt_clms(char *s)
 	y = 0;
 	while (tmp[y])
 	{
-		free(tmp[y]);
+		free(tmp[y]); //change here
 		y++;
 	}
+	tmp = NULL;
 	free(tmp);
 	return (y);
 }

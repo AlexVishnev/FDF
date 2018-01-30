@@ -19,9 +19,11 @@
 # include <mlx.h>
 # include <stdio.h>
 
-# define STEP 20
+# define STEP 5
 # define WD 1200
 # define HG 800
+
+#define LEAK system("leaks $(ps | grep FDF | grep fdf | cut -d ' ' -f 1)")
 
 typedef	struct	s_cord
 {
