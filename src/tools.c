@@ -57,10 +57,23 @@ int	check_size(char **s)
 	return (0);
 }
 
+int 	check_store(char **s)
+{
+	size_t	i;
 
+	i = 0;
+	if (!(ft_isdigit(s[0][0])))
+		return (1);
+	printf("%c\n", s[0][0]); 
+	while (s[i])
+	{
+		i++; // WORK UP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
+	return (0);
+}
 void	valide(char **s)
 {
-	if (check_size(s))
+	if (check_size(s) || check_store(s))
 		map_err();
 }
 

@@ -12,22 +12,25 @@
 
 #include "fdf.h"
 
-size_t		size_fill(char *s)
+size_t		size_fill(char *field)
 {
 	int		fd;
 	char	*line;
 	size_t	i;
 
 	i = 0;
-	fd = open(s, O_RDONLY);
+	fd = open(field, O_RDONLY);
 	while (ft_next_line(fd, &line) > 0)
+	{
+		free(line);
 		i++;
+	}
 	close(fd);
 	free(line);
 	return (i);
 }
 
-char 	**rfile(char *s)
+char 	**rfile(char *field)
 {
 	char	**buff;
 	int		fd;
@@ -35,16 +38,17 @@ char 	**rfile(char *s)
 	size_t	size;
 	size_t	i;
 
-	size = size_fill(s);
+	size = size_fill(field);
 	i = 0;
-	fd = open(s, O_RDONLY);
+	fd = open(field, O_RDONLY);
 	buff = (char**)malloc(sizeof(char*) * size + 1);
 	while (ft_next_line(fd, &line) > 0)
 	{
 		buff[i] = ft_strdup(line);
-		i++;
 		free(line);
+		i++;
 	}
+	free(line);
 	buff[i] = NULL;
 	close(fd);
 	valide(buff);

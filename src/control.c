@@ -28,7 +28,6 @@ void	key_move(int key, t_map *map)
 		move_ord(map, -STEP);
 	if (key == 125)
 		move_ord(map, STEP);
-	// if key == 
 }
 
 void	rotate(t_map *map, int key)
@@ -70,8 +69,10 @@ int		key_hold(int key, t_map *map)
 	mid_cord(map);
 	if (key == 53)
 	{
-		mlx_destroy_image(map->mlx, map->img.point);
-		exit(0);
+		//mlx_destroy_image(map->mlx, map->img.point);
+		system("leaks fdf");
+		exit(1);
+
 	}
 	key_rot(key, map);
 	key_move(key, map);

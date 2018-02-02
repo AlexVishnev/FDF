@@ -23,8 +23,9 @@ void	move_abs(t_map *map, int step)
 		j = 0;
 		while (j < map->y)
 		{
+			map->tab[i][j].y = map->tab[i][j].y;
 			map->tab[i][j].x += step;
-			//map->tab[i][j].x = map->tab[i][j].x + step;
+			map->tab[i][j].z = map->tab[i][j].z;
 			j++;
 		}
 		i++;
@@ -41,9 +42,10 @@ void	move_ord(t_map *map, int step)
 	{
 		j = 0;
 		while (j < map->y)
-		{
-			//map->tab[i][j].y = map->tab[i][j].y + step;
+		{	
+			map->tab[i][j].x = map->tab[i][j].x;
 			map->tab[i][j].y += step;
+			map->tab[i][j].z = map->tab[i][j].z;
 			j++;
 		}
 		i++;

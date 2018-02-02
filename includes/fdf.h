@@ -21,9 +21,7 @@
 
 # define STEP 5
 # define WD 1200
-# define HG 800
-
-#define LEAK system("leaks $(ps | grep FDF | grep fdf | cut -d ' ' -f 1)")
+# define HG 1200
 
 typedef	struct	s_cord
 {
@@ -98,7 +96,6 @@ size_t			cnt_rows(char **s);
 size_t			cnt_clms(char *s);
 
 char 			**rfile(char *s);
-//char			**split_arr(char *str);
 
 t_cord			new_cord(char *s, int x, int y);
 t_cord			rot_x(t_cord *p, t_cord *mid, int var);

@@ -22,11 +22,12 @@ t_map			*map_alloc(size_t x, size_t y)
 		return (NULL);
 	map->x = x;
 	map->y = y;
-	if (!(map->tab = (t_cord **)malloc(sizeof(t_cord *) * x))) //change here
+	map->tab = (t_cord **)malloc(sizeof(t_cord *) * x);
+	if (!(map->tab = (t_cord **)malloc(sizeof(t_cord *) * x)))
 		return (NULL);
 	while (i < x)
 	{
-		if (!(map->tab[i] = (t_cord*)malloc(sizeof(t_cord) * y))) // and here
+		if (!(map->tab[i] = (t_cord*)malloc(sizeof(t_cord) * y))) 
 			return (NULL);
 		i++;
 	}
@@ -49,10 +50,11 @@ t_map			*create_map(char **tab, size_t x, size_t y)
 		while (j < y)
 		{
 			map->tab[i][j] = new_cord(buff[j], i, j);
+			free(buff[j]);
 			j++;
 		}
+		free(buff[j]);
 		i++;
 	}
 	return (map);
 }
-
