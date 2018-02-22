@@ -21,10 +21,11 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		tmp = rfile(av[1]);
+		tmp = read_file(av[1]);
 		x = cnt_rows(tmp);
 		y = cnt_clms(tmp[0]);
 		map = create_map(tmp, x, y);
+		free(tmp);	
 		create_window(map);
 		mid_cord(map);
 		move_mid(map);

@@ -12,43 +12,58 @@
 
 #include "fdf.h"
 
-void	draw_ln(t_map *map, t_cord x1, t_cord x2)
+void	draw_ln(t_map *map, t_cord cordinate1, t_cord cordinate2)
 {
-	t_line ln;
+	t_line line;
 
-	ln = line_param(x1, x2);
+	line = line_param(cordinate1, cordinate2);
 	while (1)
 	{
-		make_pxl(ln, &(map->img));
-		if (ln.x1 == ln.x2 && ln.y1 == ln.y2)
+		make_pxl(line, &(map->img));
+		if (line.x1 == line.x2 && line.y1 == line.y2)
 			break ;
-		ln.err2 = ln.err * 2;
-		if (ln.dy < ln.err2)
+		line.err2 = line.err * 2;
+		if (line.dy < line.err2)
 		{
-			ln.err += ln.dy;
-			ln.x1 += ln.sx;
+			line.err += line.dy;
+			line.x1 += line.sx;
 		}
-		if (ln.dx > ln.err2)
+		if (line.dx > line.err2)
 		{
-			ln.err += ln.dx;
-			ln.y1 += ln.sy;
+			line.err += line.dx;
+			line.y1 += line.sy;
 		}
 	}
 }
 
 t_line	line_param(t_cord x_1 , t_cord x_2)
 {
-	t_line ln;
+	t_line line;
 
-	ln.x1 = x_1.x;
-	ln.y1 = x_1.y;
-	ln.x2 = x_2.x;
-	ln.y2 = x_2.y;
-	ln.dx = abs(ln.x2 - ln.x1);
-	ln.dy = -abs(ln.y2 - ln.y1);
-	ln.sx = ln.x1 < ln.x2 ? 1 : -1;
-	ln.sy = ln.y1 < ln.y2 ? 1 : -1;
-	ln.err = ln.dx + ln.dy;
-	ln.clr = x_2.col;
-	return (ln);
+	line.x1 = x_1.x;
+	line.y1 = x_1.y;
+	line.x2 = x_2.x;
+	line.y2 = x_2.y;
+	line.dx = abs(line.x2 - line.x1);
+	line.dy = -abs(line.y2 - line.y1);
+	line.sx = line.x1 < line.x2 ? 1 : -1;
+	line.sy = line.y1 < line.y2 ? 1 : -1;
+	line.err = line.dx + line.dy;
+	line.clr = x_1.col;
+	return (line);
+}
+
+void	make_pxl(t_line line, t_img *img)
+{
+	int	size;
+	int	byte;
+
+	size = 4 * WD * HG;
+	byte = (line.y1) * img->size + (line.x1) * 4;
+
+	if ( byte <= 0 || byte >= size || line.x1 > WD - 1 || line.x1 < 0)
+		return ;
+	img->data[byte] = line.clr;
+	img->data[++byte] = line.clr >> 8;
+	img->data[++byte] = line.clr >> 16;
 }

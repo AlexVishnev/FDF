@@ -21,6 +21,8 @@ $(NAME):
 	@make -C $(LIB) --silent
 	@gcc $(FLAG) $(SRC) $(LIB)libft.a -I $(INC)
 	@echo "<<<<<<<<<<<<<<<<--FDF_COMPILED-->>>>>>>>>>>>>>>>"
+norm:
+	@norminette ./src/
 clean:
 	@make -C $(LIB) clean --silent
 	@echo "<<<<<<<<<<<<<<<<--Succes-->>>>>>>>>>>>>>>>"

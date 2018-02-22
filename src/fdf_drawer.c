@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawer.c                                           :+:      :+:    :+:   */
+/*   fdf_drawer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avishnev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,10 @@
 
 #include "fdf.h"
 
-void	create_window(t_map *store)
+void	create_window(t_map *src)
 {
-	store->mlx = mlx_init();
-	store->win = mlx_new_window(store->mlx, WD, HG, "Fdf");
-}
-
-void	make_pxl(t_line ln, t_img *img)
-{
-	int	size;
-	int	byte;
-
-	size = 4 * WD * HG;
-	byte = (ln.y1) * img->size + (ln.x1) * 4;
-
-	if ( byte <= 0 || byte >= size || ln.x1 > WD - 1 || ln.x1 < 0)
-		return ;
-	img->data[byte] = ln.clr;
-	img->data[++byte] = ln.clr >> 8;
-	img->data[++byte] = ln.clr >> 16;
+	src->mlx = mlx_init();
+	src->win = mlx_new_window(src->mlx, WD, HG, "Fdf");
 }
 
 void	get_data(t_map *map)
@@ -44,10 +29,10 @@ void	get_data(t_map *map)
 		j = 0;
 		while (j < map->y)
 		{
-			if (j < map->y - 1)
-				draw_ln(map, map->tab[i][j], map->tab[i][j + 1]);
 			if (i < map->x - 1)
 				draw_ln(map, map->tab[i][j], map->tab[i + 1][j]);
+			if (j < map->y - 1)
+				draw_ln(map, map->tab[i][j], map->tab[i][j + 1]);
 			j++;
 		}
 		i++;
@@ -61,6 +46,22 @@ void	draw_img(t_map *src)
 	mlx_put_image_to_window(src->mlx, src->win, src->img.point, 0, 0);
 }
 
+void	fdf_info(t_map *map)
+{
+	char	*info;
+	char	*info2;
+
+	info = "Arrows to move";
+	info2 = "Numpad keys to rotate, & set projection";
+	mlx_string_put(map->mlx, map->win, 10, 10, 0x0FF96FF, "@avishnev");
+	mlx_string_put(map->mlx, map->win, 10, 30, 0x0FFFFFF, "USAGE FDF: ");
+	mlx_string_put(map->mlx, map->win, 115, 50, 0x0FFFF33, info);
+	mlx_string_put(map->mlx, map->win, 115, 70, 0x0FF3F33, info2);
+	mlx_string_put(map->mlx, map->win, 115, 90, 0x0FF9F33, "+/- ZOOM");
+	mlx_string_put(map->mlx, map->win, 115, 110, 0x0FFAFFF, "ESC to exit");
+	mlx_string_put(map->mlx, map->win, 115, 130, 0x3399FF, "C to change colour");
+}
+
 void	redraw(t_map *src)
 {
 	t_img *image;
@@ -69,7 +70,9 @@ void	redraw(t_map *src)
 	image->point = mlx_new_image(src->mlx, WD, HG);
 	image->data = mlx_get_data_addr(image->point, &(image->bits),
 										 &(image->size), &(image->end));
+	mlx_clear_window(src->mlx, src->win);
 	draw_img(src);
 	mlx_put_image_to_window(src->mlx, src->win, src->img.point, 0, 0);
-	mlx_destroy_image(src->mlx, src->img.point); 
+	mlx_destroy_image(src->mlx, src->img.point);
+	fdf_info(src);
 }

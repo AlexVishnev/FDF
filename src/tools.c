@@ -27,14 +27,13 @@ size_t		cnt_clms(char *s)
 	char 	**tmp;
 	size_t	y;
 	
-	tmp = ft_strsplit(s, ' ');
+	tmp = ft_split_arr(s, ' ');
 	y = 0;
 	while (tmp[y])
 	{
-		free(tmp[y]); //change here
+		free(tmp[y]);
 		y++;
 	}
-	tmp = NULL;
 	free(tmp);
 	return (y);
 }
@@ -45,10 +44,12 @@ int	check_size(char **s)
 	size_t	s0;
 	size_t	s1;
 
-	i = 0;
+	i = 1;
 	s0 = cnt_clms(s[0]);
+	printf("s0 = [%zu]\n", s0);
 	while (s[i])
 	{
+		printf("s1[%zu] = [%zu]\n", i,  s1);
 		s1 = cnt_clms(s[i]);
 		if (s1 < s0)
 			return (1);
@@ -60,21 +61,30 @@ int	check_size(char **s)
 int 	check_store(char **s)
 {
 	size_t	i;
+	size_t	j;
 
+	j = 0;
 	i = 0;
-	if (!(ft_isdigit(s[0][0])))
-		return (1);
-	printf("%c\n", s[0][0]); 
-	while (s[i])
+	while (s[i][j] != '\0')
 	{
-		i++; // WORK UP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		while (s[i][j] != '\n')
+		{
+			if (s[i][j] == ' ' || s[i][j] == '-')
+				j++;
+			if (ft_isdigit(s[i][j]))
+				j++;
+			if (s[i][j] == '\0' && ((s[i][j - 1] == '\n') || ft_isdigit(s[i][j - 1])))
+				return (0);
+			j++;
+		}
+		i++;
 	}
-	return (0);
+	return (1);
 }
 void	valide(char **s)
 {
 	if (check_size(s) || check_store(s))
-		map_err();
+		map_error();
 }
 
 void	init_image(t_map *store)

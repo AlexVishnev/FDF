@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "fdf.h"
 
-void	zoom_map(t_map *map, double zoom)
+void	zoom_map(t_map *map, float zoom)
 {
 	size_t	i;
 	size_t	j;
@@ -34,18 +33,40 @@ void	zoom_map(t_map *map, double zoom)
 		i++;
 	} 
 }
+t_cord	zoom_image(t_cord *p, t_cord *mid, int var)
+{
+	t_cord	tmp;
+	float	radian;
+
+	p->x -= mid->x;
+	p->y -= mid->y;
+	radian = var * 3.14159265359 / 180;
+	tmp.x = p->x;
+	tmp.y = p->y;
+	tmp.z = p->z ;
+	printf("tmp.hgz[[%d]]\n", tmp.hgz );
+	if (tmp.col > 0)
+		tmp.col = p->col - (p->col >> 1);
+	if (tmp.col <= 1)
+		tmp.col = 16777182;
+	printf("%d\n", tmp.col );
+	tmp.x += mid->x;
+	tmp.y += mid->y;
+	return (tmp);
+
+}
 
 t_cord	rot_x(t_cord *p, t_cord *mid, int var)
 {
 	t_cord	tmp;
-	double	corner;
+	float	radian;
 
 	p->x -= mid->x;
 	p->y -= mid->y;
-	corner = var * 3.14159 / 180;
+	radian = var * 3.14159265359 / 180;
 	tmp.x = p->x;
-	tmp.y = p->y * cos(corner) + p->z * sin(corner);
-	tmp.z = (-(p->y) * sin(corner)) + p->z * cos(corner);
+	tmp.y = p->y * cos(RADIAN) + p->z * sin(RADIAN);
+	tmp.z = (-(p->y) * sin(RADIAN)) + p->z * cos(RADIAN);
 	tmp.col = p->col;
 	tmp.x += mid->x;
 	tmp.y += mid->y;
@@ -55,14 +76,14 @@ t_cord	rot_x(t_cord *p, t_cord *mid, int var)
 t_cord	rot_y(t_cord *p, t_cord *mid, int var)
 {
 	t_cord	tmp;
-	double	corner;
+	float	radian;
 
 	p->x -= mid->x;
 	p->y -= mid->y;
-	corner = var * 3.14159 / 180;
-	tmp.x = p->x * cos(corner) + p->z * sin(corner);
+	radian = var * 3.14159265359 / 180;
+	tmp.x = p->x * cos(RADIAN) + p->z * sin(RADIAN);
 	tmp.y = p->y;
-	tmp.z = (-(p->x) * sin(corner)) + p->z * cos(corner);
+	tmp.z = (-(p->x) * sin(RADIAN)) + p->z * cos(RADIAN);
 	tmp.col = p->col;
 	tmp.x += mid->x;
 	tmp.y += mid->y;
@@ -72,13 +93,13 @@ t_cord	rot_y(t_cord *p, t_cord *mid, int var)
 t_cord	rot_z(t_cord *p, t_cord *mid, int var)
 {
 	t_cord	tmp;
-	double	corner;
+	float	radian;
 
 	p->x -= mid->x;
 	p->y -= mid->y;
-	corner = var * 3.14159 / 180;
-	tmp.x = p->x * cos(corner) - p->y * sin(corner);
-	tmp.y = p->x * sin(corner) + p->y * cos(corner);
+	radian = var * 3.14159265359 / 180;
+	tmp.x = p->x * cos(RADIAN) - p->y * sin(RADIAN);
+	tmp.y = p->x * sin(RADIAN) + p->y * cos(RADIAN);
 	tmp.z = p->z;
 	tmp.col = p->col;
 	tmp.x += mid->x;

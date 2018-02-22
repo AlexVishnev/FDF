@@ -30,6 +30,7 @@ typedef struct	s_gnl
 {
 	char		*buf;
 	int			fd;
+	int			start;
 }				t_gnl;
 
 char			*ft_strpjoin(char *a, char *b);
@@ -84,7 +85,7 @@ void			ft_lstdel(t_list **alst, void (*del)(void*, size_t));
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 
-int				ft_next_line(const int fd, char **line);
+int				ft_getline(const int fd, char **line);
 int				ft_strncmp(const char *str1, const char *str2, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 int				ft_strnequ(char const *s1, char const *s2, size_t n);

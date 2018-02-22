@@ -12,10 +12,10 @@
 
 #include "fdf.h"
 
-void	map_err(void)
+void	map_error(void)
 {
-	ft_putendl("Error: You trying to parse crash map!");
-	ft_putendl("Dont do that, please!");
+	ft_putendl("Error: You trying to parse invalid map!");
+	ft_putendl("Usage: ./fdf /map/example.fdf");
 	exit(1);
 }
 
