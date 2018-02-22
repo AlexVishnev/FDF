@@ -54,7 +54,7 @@ void	rotate(t_map *map, int key)
 			else if (key == 83)
 				map->tab[i][j] = rot_z(&map->tab[i][j], map->mid, -2);
 			else if (key == 34)
-				map->tab[i][j] = zoom_image(&map->tab[i][j], map->mid, 2);
+				map->tab[i][j] = zoom_image(&map->tab[i][j], map->mid);
 			j++;
 		}
 		i++;

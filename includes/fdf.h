@@ -34,7 +34,7 @@ typedef	struct	s_cord
 	float		y;
 	float		z;
 	int 		hgz;
-	int			col;
+	unsigned long long	col;
 }				t_cord;
 
 typedef	struct	s_img
@@ -73,11 +73,11 @@ typedef	struct 	s_line
 }				t_line;
 
 
-void	fdf_info(t_map *map);
+void			fdf_info(t_map *map);
 
 
 
-t_cord	zoom_image(t_cord *p, t_cord *mid, int var);
+t_cord			zoom_image(t_cord *p, t_cord *mid);
 
 
 

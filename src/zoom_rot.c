@@ -33,23 +33,23 @@ void	zoom_map(t_map *map, float zoom)
 		i++;
 	} 
 }
-t_cord	zoom_image(t_cord *p, t_cord *mid, int var)
+
+
+t_cord	zoom_image(t_cord *p, t_cord *mid)
 {
 	t_cord	tmp;
-	float	radian;
 
 	p->x -= mid->x;
 	p->y -= mid->y;
-	radian = var * 3.14159265359 / 180;
 	tmp.x = p->x;
 	tmp.y = p->y;
 	tmp.z = p->z ;
 	printf("tmp.hgz[[%d]]\n", tmp.hgz );
 	if (tmp.col > 0)
-		tmp.col = p->col - (p->col >> 1);
+		tmp.col = p->col - (p->col - (p->col >> 1));
 	if (tmp.col <= 1)
-		tmp.col = 16777182;
-	printf("%d\n", tmp.col );
+		tmp.col = 987654321987654321;
+	printf("%lld\n", tmp.col );
 	tmp.x += mid->x;
 	tmp.y += mid->y;
 	return (tmp);
@@ -59,14 +59,12 @@ t_cord	zoom_image(t_cord *p, t_cord *mid, int var)
 t_cord	rot_x(t_cord *p, t_cord *mid, int var)
 {
 	t_cord	tmp;
-	float	radian;
-
+	
 	p->x -= mid->x;
 	p->y -= mid->y;
-	radian = var * 3.14159265359 / 180;
 	tmp.x = p->x;
-	tmp.y = p->y * cos(RADIAN) + p->z * sin(RADIAN);
-	tmp.z = (-(p->y) * sin(RADIAN)) + p->z * cos(RADIAN);
+	tmp.y = p->y * cos(var * RADIAN) + p->z * sin(var * RADIAN);
+	tmp.z = (-(p->y) * sin(var * RADIAN)) + p->z * cos(var * RADIAN);
 	tmp.col = p->col;
 	tmp.x += mid->x;
 	tmp.y += mid->y;
@@ -76,14 +74,12 @@ t_cord	rot_x(t_cord *p, t_cord *mid, int var)
 t_cord	rot_y(t_cord *p, t_cord *mid, int var)
 {
 	t_cord	tmp;
-	float	radian;
-
+	
 	p->x -= mid->x;
 	p->y -= mid->y;
-	radian = var * 3.14159265359 / 180;
-	tmp.x = p->x * cos(RADIAN) + p->z * sin(RADIAN);
+	tmp.x = p->x * cos(var * RADIAN) + p->z * sin(var * RADIAN);
 	tmp.y = p->y;
-	tmp.z = (-(p->x) * sin(RADIAN)) + p->z * cos(RADIAN);
+	tmp.z = (-(p->x) * sin(var * RADIAN)) + p->z * cos(var * RADIAN);
 	tmp.col = p->col;
 	tmp.x += mid->x;
 	tmp.y += mid->y;
@@ -93,13 +89,11 @@ t_cord	rot_y(t_cord *p, t_cord *mid, int var)
 t_cord	rot_z(t_cord *p, t_cord *mid, int var)
 {
 	t_cord	tmp;
-	float	radian;
-
+	
 	p->x -= mid->x;
 	p->y -= mid->y;
-	radian = var * 3.14159265359 / 180;
-	tmp.x = p->x * cos(RADIAN) - p->y * sin(RADIAN);
-	tmp.y = p->x * sin(RADIAN) + p->y * cos(RADIAN);
+	tmp.x = p->x * cos(var * RADIAN) - p->y * sin(var * RADIAN);
+	tmp.y = p->x * sin(var * RADIAN) + p->y * cos(var * RADIAN);
 	tmp.z = p->z;
 	tmp.col = p->col;
 	tmp.x += mid->x;
