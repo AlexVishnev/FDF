@@ -63,7 +63,7 @@ void	image_colour(t_map *map, int key)
 		while (j < map->y)
 		{
 			if (key == 8)
-				MATRIX_ = image_new_cord_colour(MATRIX_, key);
+				MATRIX_ = image_new_cord_colour(map, MATRIX_, key);
 			j++;
 		}
 		i++;

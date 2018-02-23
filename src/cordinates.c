@@ -44,50 +44,47 @@ t_hgcol		sorting(t_map *map, t_hgcol p)
 		j = 0;
 		while (j < map->y - 1)
 		{
-			if (map->tab[i][j].hgz > map->tab[i][j + 1])
+			if (map->tab[i][j].hgz > map->tab[i][j + 1].hgz)
 				p.max_hg = map->tab[i][j].hgz;
-			else if (map->tab[i][j].hgz < map->tab[i][j + 1])
+			else if (map->tab[i][j].hgz < map->tab[i][j + 1].hgz)
 				p.min_hg = map->tab[i][j].hgz;
+			j++;
 		}
+		i++;
 	}
 	p.mid_hg = (p.max_hg - p.min_hg) / 2;
-
-	printf("p.max_hg = [%d]\n", p.max_hg);
-	printf("p.mid_hg = [%d]\n", p.mid_hg);
-	printf("p.min_hg = [%d]\n", p.min_hg);
 	return (p);
 }
 
-t_cord			image_new_cord_colour(t_cord cord, int key)
+t_cord			image_new_cord_colour(t_map *map, t_cord cord, int key)
 {
 
-	t_hgcol		sotr;
+	t_hgcol		sort;
 
 	sort.max_hg = 0;
 	sort.mid_hg = 0;
 	sort.min_hg = 0;
 
-	sotr
+	sort = sorting(map, sort);
 	if (key == 7)
 		cord.col = ft_atoi_base(WHITE, 16);
 	else if (key == 8)
 	{
-
-		// if (cord.hgz < 0)
-		// {
-		// 	cord.col = BLUE;
-		// 	if (cord.hgz < -2)
-		// 		cord.col = cord.col << 2;
-		// }
-		// if (cord.hgz >= 0)
-		// {
-		// 	if (cord.hgz <= 2)
-		// 		cord.col = GREEN;
-		// 	if (cord.hgz < 5 && cord.hgz > 2)
-		// 		cord.col = BROWN;
-		// 	if (cord.hgz >= 5)
-		// 		cord.col = ft_atoi_base(WHITE, 16);
-		// }
+		if (cord.hgz == sort.min_hg)
+		{
+			cord.col = GREEN;
+			if (cord.hgz < -2)
+				cord.col = BLUE << 2;
+		}
+		if (cord.hgz > sort.min_hg)
+		{
+			if (cord.hgz <= sort.mid_hg - 1)
+				cord.col = GREEN;
+			if (cord.hgz >= sort.mid_hg - 2 && cord.hgz <= sort.mid_hg + 2)
+				cord.col = BROWN;
+			if (cord.hgz <= sort.max_hg && cord.hgz >= sort.max_hg - 2)
+				cord.col = ft_atoi_base(WHITE, 16);
+		}
 	}
 	return (cord);
 }

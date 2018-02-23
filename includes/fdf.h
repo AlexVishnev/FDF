@@ -41,7 +41,7 @@ typedef	struct	s_cord
 
 typedef struct	s_hgcol
 {
-	int		low_hg;
+	int		min_hg;
 	int		mid_hg;
 	int		max_hg;
 }				t_hgcol;
@@ -97,7 +97,7 @@ void			image_colour(t_map *map, int key);
 t_cord			image_rotation_x(t_cord *p, t_cord *mid, int var, int key);
 t_cord			image_rotation_y(t_cord *p, t_cord *mid, int var, int key);
 t_cord			image_rotation_z(t_cord *p, t_cord *mid, int var, int key);
-t_cord			image_new_cord_colour(t_cord c, int key);
+t_cord			image_new_cord_colour(t_map *map, t_cord c, int key);
 
 void			cord_mid_cord(t_map *map);
 t_cord			cord_new_cord(char *s, int x, int y);
