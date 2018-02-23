@@ -58,13 +58,11 @@ t_hgcol		sorting(t_map *map, t_hgcol p)
 
 t_cord			image_new_cord_colour(t_map *map, t_cord cord, int key)
 {
-
 	t_hgcol		sort;
 
 	sort.max_hg = 0;
 	sort.mid_hg = 0;
 	sort.min_hg = 0;
-
 	sort = sorting(map, sort);
 	if (key == 7)
 		cord.col = ft_atoi_base(WHITE, 16);
