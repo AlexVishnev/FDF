@@ -15,10 +15,13 @@
 void	create_window(t_map *src)
 {
 	src->mlx = mlx_init();
+	if (src->win)
+		mlx_clear_window(src->mlx, src->win);
 	src->win = mlx_new_window(src->mlx, WD, HG, "Fdf");
+
 }
 
-void	get_data(t_map *map)
+void	fdf_brezenham(t_map *map)
 {
 	size_t	i;
 	size_t	j;
@@ -39,40 +42,66 @@ void	get_data(t_map *map)
 	}
 }
 
-void	draw_img(t_map *src)
+void	fdf_draw_img(t_map *src)
 {
 	init_image(src);
-	get_data(src);
+	fdf_brezenham(src);
 	mlx_put_image_to_window(src->mlx, src->win, src->img.point, 0, 0);
 }
 
-void	fdf_info(t_map *map)
+void	fdf_info(t_map *map, int key, int flag)
 {
 	char	*info;
-	char	*info2;
+	int		text_color;
 
-	info = "Arrows to move";
-	info2 = "Numpad keys to rotate, & set projection";
-	mlx_string_put(map->mlx, map->win, 10, 10, 0x0FF96FF, "@avishnev");
-	mlx_string_put(map->mlx, map->win, 10, 30, 0x0FFFFFF, "USAGE FDF: ");
-	mlx_string_put(map->mlx, map->win, 115, 50, 0x0FFFF33, info);
-	mlx_string_put(map->mlx, map->win, 115, 70, 0x0FF3F33, info2);
-	mlx_string_put(map->mlx, map->win, 115, 90, 0x0FF9F33, "+/- ZOOM");
-	mlx_string_put(map->mlx, map->win, 115, 110, 0x0FFAFFF, "ESC to exit");
-	mlx_string_put(map->mlx, map->win, 115, 130, 0x3399FF, "C to change colour");
+	text_color = GREEN;
+	if (key == 4)
+		text_color = 0;
+	else if (key == 1 || flag == 0 || key == 0)
+		text_color = GREEN;
+	mlx_string_put(map->mlx, map->win, 10, 10, text_color >> 8, "@avishnev");
+	mlx_string_put(map->mlx, map->win, 10, 30, text_color, "USAGE FDF: ");
+	mlx_string_put(map->mlx, map->win, 115, 50, text_color, "Arrows to move");
+	info = "Numpad keys to rotate, & set projection";
+	mlx_string_put(map->mlx, map->win, 115, 70, text_color, info);
+	mlx_string_put(map->mlx, map->win, 115, 90, text_color, "+/- ZOOM");
+	mlx_string_put(map->mlx, map->win, 115, 110, text_color, "ESC to exit");
+	info = "I/O Disko mod |8-) C - set default";
+	mlx_string_put(map->mlx, map->win, 115, 130, text_color, info);
+	info = "S show this message";
+	mlx_string_put(map->mlx, map->win, 115, 150, text_color, info);
 }
 
-void	redraw(t_map *src)
+void	fdf_redraw_image(t_map *src, int key)
 {
-	t_img *image;
+	static	int 	flag;
 
-	image = &(src->img);
-	image->point = mlx_new_image(src->mlx, WD, HG);
-	image->data = mlx_get_data_addr(image->point, &(image->bits),
-										 &(image->size), &(image->end));
 	mlx_clear_window(src->mlx, src->win);
-	draw_img(src);
-	mlx_put_image_to_window(src->mlx, src->win, src->img.point, 0, 0);
+	init_image(src);
+	fdf_draw_img(src);
 	mlx_destroy_image(src->mlx, src->img.point);
-	fdf_info(src);
+	if (flag == 0)
+	{
+		fdf_info(src, 0, flag);
+		flag++;
+	}
+	if (key == 4 || key == 1)
+		fdf_info(src, key, flag);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

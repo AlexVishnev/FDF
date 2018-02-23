@@ -14,23 +14,19 @@
 
 int		redr_f(t_map *map)
 {
-	redraw(map);
+	fdf_redraw_image(map, 0);
 	return (0);
 }
 
 void	key_move(int key, t_map *map)
 {
-	if (key == 123)
-		move_abs(map, -STEP);
-	if (key == 124) 
-		move_abs(map, STEP);
-	if (key == 126)
-		move_ord(map, -STEP);
-	if (key == 125)
-		move_ord(map, STEP);
+	if (key == 123 || key == 124)
+		image_move_abs(map, STEP, key);
+	if (key == 126 || key == 125)
+		image_move_ord(map, STEP, key);
 }
 
-void	rotate(t_map *map, int key)
+void	fdf_set_projection(t_map *map, int key)
 {
 	size_t	i;
 	size_t	j;
@@ -41,27 +37,21 @@ void	rotate(t_map *map, int key)
 		j = 0;
 		while (j < map->y)
 		{
-			if (key == 91)
-				map->tab[i][j] = rot_x(&map->tab[i][j], map->mid, 2);
-			else if (key == 84)
-				map->tab[i][j] = rot_x(&map->tab[i][j], map->mid, -2);
-			else if (key == 88)
-				map->tab[i][j] = rot_y(&map->tab[i][j], map->mid, 2);
-			else if (key == 86)
-				map->tab[i][j] = rot_y(&map->tab[i][j], map->mid, -2);
-			else if (key == 85)
-				map->tab[i][j] = rot_z(&map->tab[i][j], map->mid, 2);
-			else if (key == 83)
-				map->tab[i][j] = rot_z(&map->tab[i][j], map->mid, -2);
-			else if (key == 34)
-				map->tab[i][j] = zoom_image(&map->tab[i][j], map->mid);
+			if (key == 91 || key == 84)
+				MATRIX_ = image_rotation_x(&MATRIX_, map->mid, 2, key);
+			else if (key == 88 || key == 86)
+				MATRIX_ = image_rotation_y(&MATRIX_, map->mid, 2, key);
+			else if (key == 85 || key == 83)
+				MATRIX_ = image_rotation_z(&MATRIX_, map->mid, 2, key);
+			else if (key == 34 || key == 31)
+				MATRIX_ = fdf_color_fun(&MATRIX_, key);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	colour(t_map *map, int key)
+void	image_colour(t_map *map, int key)
 {
 	size_t	i;
 	size_t	j;
@@ -73,7 +63,7 @@ void	colour(t_map *map, int key)
 		while (j < map->y)
 		{
 			if (key == 8)
-				map->tab[i][j] = new_cord_colour(map->tab[i][j]); 
+				MATRIX_ = image_new_cord_colour(MATRIX_, key);
 			j++;
 		}
 		i++;
@@ -82,32 +72,31 @@ void	colour(t_map *map, int key)
 
 void	key_rot_color(int key, t_map *map)
 {
-	rotate(map, key);
-	colour(map, key);
+	fdf_set_projection(map, key);
+	image_colour(map, key);
 }
 
 int		key_hold(int key, t_map *map)
 {
-	mid_cord(map);
+	cord_mid_cord(map);
 	if (key == 53)
 	{
+		free_data(map);
 		mlx_destroy_image(map->mlx, map->win);
 		mlx_clear_window(map->mlx, map->win);
-		free_data(map);
-		system("leaks fdf");
+		system("leaks -q fdf");
 		exit(1);
-
 	}
 	key_rot_color(key, map);
 	key_move(key, map);
 	key_zoom(key, map);
-	redraw(map);
+	fdf_redraw_image(map, key);
 	return (0);
 }
 
 void	key_zoom(int key, t_map *map)
 {
-	static size_t i;	
+	static size_t i;
 
 	if (key == 69)
 	{

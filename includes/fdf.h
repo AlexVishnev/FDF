@@ -20,22 +20,31 @@
 # include <stdio.h>
 
 # define STEP 5
-# define WD 1000
-# define HG 1000
+# define WD 2000
+# define HG 2000
 # define RADIAN 2 * 3.14159265359 / 180
-# define BLUE "0x0000FF"
-# define GREEN "0x00FF00"
-# define BROWN "0x8B4513"
+# define BLUE 0x0000FF
+# define GREEN 0x00FF00
+# define BROWN 0x8B451
 # define WHITE "0xFFFFFF"
+# define MATRIX_ map->tab[i][j]
+# define MATRIX_MID_ map->mid
 
 typedef	struct	s_cord
 {
-	float		x;
-	float		y;
-	float		z;
-	int 		hgz;
+	float				x;
+	float				y;
+	float				z;
+	int					hgz;
 	unsigned long long	col;
 }				t_cord;
+
+typedef struct	s_hgcol
+{
+	int		low_hg;
+	int		mid_hg;
+	int		max_hg;
+}				t_hgcol;
 
 typedef	struct	s_img
 {
@@ -73,38 +82,50 @@ typedef	struct 	s_line
 }				t_line;
 
 
-void			fdf_info(t_map *map);
+t_hgcol		sorting(t_map *map, t_hgcol p);
 
+void			fdf_info(t_map *map, int key, int flag);
+t_cord			fdf_color_fun(t_cord *p, int key);
+void			fdf_draw_img(t_map *src);
+void			fdf_set_projection(t_map *map, int key);
+void			fdf_redraw_image(t_map *map, int key);
 
+/*
+**
+**/
+void			image_colour(t_map *map, int key);
+t_cord			image_rotation_x(t_cord *p, t_cord *mid, int var, int key);
+t_cord			image_rotation_y(t_cord *p, t_cord *mid, int var, int key);
+t_cord			image_rotation_z(t_cord *p, t_cord *mid, int var, int key);
+t_cord			image_new_cord_colour(t_cord c, int key);
 
-t_cord			zoom_image(t_cord *p, t_cord *mid);
-
-
+void			cord_mid_cord(t_map *map);
+t_cord			cord_new_cord(char *s, int x, int y);
 
 void			free_data(t_map *map);
-
 void			key_colour(t_cord *c, int key);
 
 void			key_zoom_image(int key, t_map *map);
-//t_cord			zoom_image(t_cord *p, float step);
 void			move_mid(t_map *map);
-void			move_abs(t_map *map, int step);
-void			move_ord(t_map *map, int step);
+void			image_move_abs(t_map *map, int step, int key);
+void			image_move_ord(t_map *map, int step, int key);
 void			create_window(t_map *store);
 void			map_error(void);
-void			draw_img(t_map *src);
+
 void			error_imput(void);
-void			build_image(t_map *fill);
+
 void			valide(char **s);
 void			make_pxl(t_line ln, t_img *img);
 void			draw_ln(t_map *map, t_cord x1, t_cord x2);
-void			mid_cord(t_map *map);
-void			redraw(t_map *map);
-void			get_data(t_map *field);
+
+
+void			fdf_brezenham(t_map *field);
 void			init_image(t_map *store);
 void			zoom_map(t_map *map, float zoom);
 void			key_zoom(int key, t_map *map);
-void			rotate(t_map *map, int key);
+
+
+void			error_imput1(void);
 
 int				check_size(char **s);
 int				redr_f(t_map *map);
@@ -117,14 +138,10 @@ size_t			cnt_clms(char *s);
 
 char			**read_file(char *field);
 
-t_cord			new_cord(char *s, int x, int y);
-t_cord			rot_x(t_cord *p, t_cord *mid, int var);
-t_cord			rot_y(t_cord *p, t_cord *mid, int var);
-t_cord			rot_z(t_cord *p, t_cord *mid, int var);
-t_cord			new_cord_colour(t_cord c);
+
+
 t_map			*map_alloc(size_t x, size_t y);
 t_map			*create_map(char **tab, size_t x, size_t y);
 t_line			line_param(t_cord c_1 , t_cord c_2);
-t_cord			zoom(t_cord *p, t_cord *mid, int var);
 
 #endif

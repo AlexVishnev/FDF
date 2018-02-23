@@ -27,14 +27,16 @@ int	main(int ac, char **av)
 		map = create_map(tmp, x, y);
 		free(tmp);	
 		create_window(map);
-		mid_cord(map);
+		cord_mid_cord(map);
 		move_mid(map);
-		draw_img(map);
+		fdf_draw_img(map);
 		mlx_destroy_image(map->mlx, map->img.point);
 		mlx_expose_hook(map->win, redr_f, map);
 		mlx_hook(map->win, 2, 3, key_hold, map);
 		mlx_loop(map->mlx);
 	}
+	if (ac > 2 && ac < 256)
+		error_imput1();
 	else
 		error_imput();
 	return (0);

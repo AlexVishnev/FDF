@@ -46,10 +46,9 @@ int	check_size(char **s)
 
 	i = 1;
 	s0 = cnt_clms(s[0]);
-	printf("s0 = [%zu]\n", s0);
+	s1 = s0;
 	while (s[i])
 	{
-		printf("s1[%zu] = [%zu]\n", i,  s1);
 		s1 = cnt_clms(s[i]);
 		if (s1 < s0)
 			return (1);
@@ -89,10 +88,7 @@ void	valide(char **s)
 
 void	init_image(t_map *store)
 {
-	t_img	*img;
-
-	img = &(store->img);
-	img->point = mlx_new_image(store->mlx, WD, HG);
-	img->data = mlx_get_data_addr(img->point, 
-						&(img->bits), &(img->size), &(img->end));
+	store->img.point = mlx_new_image(store->mlx, WD, HG);
+	store->img.data = mlx_get_data_addr(store->img.point, 
+						&(store->img.bits), &(store->img.size), &(store->img.end));
 }

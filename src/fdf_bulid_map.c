@@ -52,7 +52,7 @@ t_map			*create_map(char **field, size_t x, size_t y)
 		free(field[i]);
 		while (j < y)
 		{
-			map->tab[i][j] = new_cord(buff[j], i, j);
+			MATRIX_ = cord_new_cord(buff[j], i, j);
 			free(buff[j]);
 			j++;
 		}

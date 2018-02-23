@@ -12,36 +12,38 @@
 
 #include "fdf.h"
 
-void	move_abs(t_map *map, int step)
+void	image_move_abs(t_map *map, int step, int key)
 {
 	size_t	i;
 	size_t	j;
 
+	step *= (key == 124) ? 1 : -1;
 	i = 0;
 	while (i < map->x)
 	{
 		j = 0;
 		while (j < map->y)
 		{
-			map->tab[i][j].x += step;
+			MATRIX_.x += step;
 			j++;
 		}
 		i++;
 	}
 }
 
-void	move_ord(t_map *map, int step)
+void	image_move_ord(t_map *map, int step, int key)
 {
 	size_t	i;
 	size_t	j;
 
+	step *= (key == 125) ? 1 : -1;
 	i = 0;
 	while (i < map->x)
 	{
 		j = 0;
 		while (j < map->y)
 		{	
-			map->tab[i][j].y += step;
+			MATRIX_.y += step;
 			j++;
 		}
 		i++;
@@ -53,8 +55,8 @@ void	move_mid(t_map *map)
 	size_t	i;
 	size_t	j;
 
-	j = HG / 2 - map->mid->y;
-	i = WD / 2 - map->mid->x;
-	move_abs(map, j);
-	move_ord(map, i); 
+	j = HG / 2 - MATRIX_MID_->y;
+	i = WD / 2 - MATRIX_MID_->x;
+	image_move_abs(map, j, 124);
+	image_move_ord(map, i, 125);
 }

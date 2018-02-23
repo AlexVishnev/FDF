@@ -24,3 +24,9 @@ void	error_imput(void)
 	perror("Error");
 	exit(1);
 }
+
+void	error_imput1(void)
+{
+	ft_putendl("Error: Multithreading are not supports");
+	exit(1);
+}
