@@ -14,12 +14,10 @@
 
 static void		norminettte_func(t_hgcol sort, t_cord cord)
 {
-	if (cord.hgz <= sort.mid_hg - 1)
+	if (cord.hgz <= (sort.mid_hg + 2))
 		cord.col = GREEN;
-	if (cord.hgz >= sort.mid_hg - 2 && cord.hgz <= sort.mid_hg + 2)
+	if (cord.hgz > sort.max_hg - sort.mid_hg)
 		cord.col = BROWN;
-	if (cord.hgz <= sort.max_hg && cord.hgz >= sort.max_hg - 2)
-		cord.col = ft_atoi_base(WHITE, 16);
 }
 
 void			image_colour(t_map *map, int key)
@@ -52,14 +50,16 @@ t_cord			cord_new_cord_colour(t_map *map, t_cord cord, int key)
 		cord.col = ft_atoi_base(WHITE, 16);
 	else if (key == 8)
 	{
-		if (cord.hgz == sort.min_hg)
+		if (cord.hgz == sort.min_hg )
 		{
 			cord.col = BLUE;
-			if (cord.hgz <= -2)
-				cord.col = BLUE >> 2;
+			if (cord.hgz < 0 || cord.hgz == sort.min_hg)
+				cord.col = BLUE;
 		}
 		if (cord.hgz > sort.min_hg)
 			norminettte_func(sort, cord);
+		if (cord.hgz == sort.max_hg)
+			cord.col = BROWN;
 	}
 	return (cord);
 }
@@ -69,16 +69,21 @@ t_hgcol			sorting(t_map *map, t_hgcol p)
 	size_t	i;
 	size_t	j;
 
+	p.max_hg = map->tab[0][0].hgz;
+	p.min_hg = map->tab[0][0].hgz;
 	i = 0;
 	while (i < map->x)
 	{
 		j = 0;
-		while (j < map->y - 1)
+		while (j < map->y)
 		{
-			if (map->tab[i][j].hgz > map->tab[i][j + 1].hgz)
+			if (p.max_hg < map->tab[i][j].hgz)
 				p.max_hg = map->tab[i][j].hgz;
-			else if (map->tab[i][j].hgz < map->tab[i][j + 1].hgz)
-				p.min_hg = map->tab[i][j].hgz;
+			else
+			{
+				if (p.min_hg > map->tab[i][j].hgz)
+					p.min_hg = map->tab[i][j].hgz;
+			}
 			j++;
 		}
 		i++;

@@ -14,7 +14,6 @@
 # define FDF_H
 # include <math.h>
 # include "../libft/libft.h"
-# include <stdlib.h>
 # include <fcntl.h>
 # include <mlx.h>
 # include <stdio.h>
@@ -22,13 +21,17 @@
 # define STEP 2
 # define WD 2000
 # define HG 2000
-# define RADIAN 2 * 3.14159265359 / 180
+# define RADIAN 2 * 3.14159265359 / 360
 # define BLUE 0x0000FF
 # define GREEN 0x00FF00
 # define BROWN 0x8B451
 # define WHITE "0xFFFFFF"
 # define _MATRIX_ map->tab[i][j]
 # define _MATRIX_MID_ map->mid
+
+/*
+** **************************** Matrix of cordinates **************************
+*/
 
 typedef	struct	s_cord
 {
@@ -39,6 +42,10 @@ typedef	struct	s_cord
 	unsigned long long	col;
 }				t_cord;
 
+/*
+** **************************** struct for heigh colour ***********************
+*/
+
 typedef struct	s_hgcol
 {
 	int		min_hg;
@@ -46,6 +53,10 @@ typedef struct	s_hgcol
 	int		max_hg;
 	int		flag;
 }				t_hgcol;
+
+/*
+** **************************** struct for image params ***********************
+*/
 
 typedef	struct	s_img
 {
@@ -55,6 +66,10 @@ typedef	struct	s_img
 	int		bits;
 	int		end;
 }				t_img;
+
+/*
+** **************************** struct for storing cordinates *****************
+*/
 
 typedef	struct	s_map
 {
@@ -66,6 +81,10 @@ typedef	struct	s_map
 	void	*mlx;
 	void	*win;
 }				t_map;
+
+/*
+** **************************** struct for line params ************************
+*/
 
 typedef	struct	s_line
 {
@@ -83,9 +102,7 @@ typedef	struct	s_line
 }				t_line;
 
 /*
-** ****************************************************************************
 ** **************************** function for drawing **************************
-** ****************************************************************************
 */
 
 void			fdf_info(t_map *map, int key, int flag);
@@ -101,9 +118,7 @@ int				fdf_redr_f(t_map *map);
 void			fdf_run(char *av);
 
 /*
-** ****************************************************************************
 ** **************************** function for contorling image *****************
-** ****************************************************************************
 */
 
 void			image_colour(t_map *map, int key);
@@ -117,9 +132,7 @@ void			image_move_ord(t_map *map, int step, int key);
 void			image_init(t_map *store);
 
 /*
-** ****************************************************************************
 ** **************************** function for create cordinates ****************
-** ****************************************************************************
 */
 
 void			cord_mid_cordinate(t_map *map);
@@ -128,9 +141,7 @@ t_cord			cord_new_cord_colour(t_map *map, t_cord c, int key);
 t_line			cord_line_param(t_cord c_1, t_cord c_2);
 
 /*
-** ****************************************************************************
 ** **************************** function for keyboard control *****************
-** ****************************************************************************
 */
 
 void			key_colour(t_cord *c, int key);
@@ -140,9 +151,7 @@ void			key_rot_color(int key, t_map *map);
 void			key_zoom(int key, t_map *map);
 
 /*
-** ****************************************************************************
 ** **************************** error managment *******************************
-** ****************************************************************************
 */
 
 void			map_error(void);
@@ -152,9 +161,7 @@ void			valide(char **s);
 int				check_size(char **s);
 
 /*
-** ****************************************************************************
 ** ****************** function for building reading file **********************
-** ****************************************************************************
 */
 
 char			**read_file(char *field);
@@ -165,9 +172,7 @@ t_map			*map_alloc(size_t x, size_t y);
 t_map			*create_map(char **tab, size_t x, size_t y);
 
 /*
-** ****************************************************************************
 ** ************************* other stuff **************************************
-** ****************************************************************************
 */
 
 t_hgcol			sorting(t_map *map, t_hgcol p);

@@ -48,12 +48,14 @@ void	fdf_info(t_map *map, int key, int flag)
 	mlx_string_put(map->mlx, map->win, 115, 50, text_color, "Arrows to move");
 	info = "Numpad keys to rotate, & set projection";
 	mlx_string_put(map->mlx, map->win, 115, 70, text_color, info);
-	mlx_string_put(map->mlx, map->win, 115, 90, text_color, "+/- ZOOM");
-	mlx_string_put(map->mlx, map->win, 115, 110, text_color, "ESC to exit");
-	info = "I/O Disko mod O_o C - heigt color   V- set default";
+	mlx_string_put(map->mlx, map->win, 115, 90, text_color, "[+]/[-] Zoom");
+	mlx_string_put(map->mlx, map->win, 115, 110, text_color, "[ESC] to exit");
+	info = "[I]/[O] Disko mod O_o C - heigt color   V- set default";
 	mlx_string_put(map->mlx, map->win, 115, 130, text_color, info);
-	info = "S show this message";
+	info = "Any key to hide this message";
 	mlx_string_put(map->mlx, map->win, 115, 150, text_color, info);
+	info = "[S] show this message";
+	mlx_string_put(map->mlx, map->win, 115, 170, text_color, info);
 }
 
 void	fdf_redraw_image(t_map *src, int key)

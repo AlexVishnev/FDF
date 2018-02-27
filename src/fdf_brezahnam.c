@@ -24,9 +24,9 @@ void	fdf_brezenham(t_map *map)
 		while (j < map->y)
 		{
 			if (i < map->x - 1)
-				fdf_draw_ln(map, map->tab[i][j], map->tab[i + 1][j]);
+				fdf_draw_ln(map, _MATRIX_, map->tab[i + 1][j]);
 			if (j < map->y - 1)
-				fdf_draw_ln(map, map->tab[i][j], map->tab[i][j + 1]);
+				fdf_draw_ln(map, _MATRIX_, map->tab[i][j + 1]);
 			j++;
 		}
 		i++;
