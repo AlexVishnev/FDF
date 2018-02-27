@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zoom_rot.c                                         :+:      :+:    :+:   */
+/*   fdf_zoom_rot.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avishnev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void	zoom_map(t_map *map, float zoom)
+void	image_zoom_map(t_map *map, float zoom)
 {
 	size_t	i;
 	size_t	j;
@@ -23,48 +23,21 @@ void	zoom_map(t_map *map, float zoom)
 		j = 0;
 		while (j < map->y)
 		{
-			MATRIX_.x = (MATRIX_.x - MATRIX_MID_->x)
-			 	* zoom + MATRIX_MID_->x;
-			MATRIX_.y = (MATRIX_.y - MATRIX_MID_->y) 
-				* zoom + MATRIX_MID_->y;
-			MATRIX_.z = MATRIX_.z * zoom;
+			_MATRIX_.x = (_MATRIX_.x - _MATRIX_MID_->x)
+				* zoom + _MATRIX_MID_->x;
+			_MATRIX_.y = (_MATRIX_.y - _MATRIX_MID_->y)
+				* zoom + _MATRIX_MID_->y;
+			_MATRIX_.z = _MATRIX_.z * zoom;
 			j++;
 		}
 		i++;
-	} 
-}
-
-t_cord	fdf_color_fun(t_cord *p, int key)
-{
-	t_cord	tmp;
-
-	tmp.x = p->x;
-	tmp.y = p->y;
-	tmp.z = p->z;
-	tmp.hgz = p->hgz;
-	printf("tmp.hgz = [%d]\n", tmp.hgz);
-	if (key == 34)
-	{	
-		if (tmp.col > 0)
-			tmp.col = (p->col +((p->col - (p->col >> 8))));
-		if (tmp.col <= 2)
-			tmp.col = 0xFFFFFFFFFFFFFFFF;
 	}
-	else if (key == 31)
-	{
-		if (tmp.col > 0)
-			tmp.col = sqrt(p->col + (p->col - (p->col >> 8)));
-		if (tmp.col <= 2)
-			tmp.col = 0xFFFFFFFFFFFFFFFF;
-
-	}
-	return (tmp);
 }
 
 t_cord	image_rotation_x(t_cord *p, t_cord *mid, int var, int key)
 {
 	t_cord	tmp;
-	
+
 	p->x -= mid->x;
 	p->y -= mid->y;
 	tmp.hgz = p->hgz;

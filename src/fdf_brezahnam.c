@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line.c                                             :+:      :+:    :+:   */
+/*   fdf_brezahnam.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avishnev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,14 +12,35 @@
 
 #include "fdf.h"
 
-void	draw_ln(t_map *map, t_cord cordinate1, t_cord cordinate2)
+void	fdf_brezenham(t_map *map)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < map->x)
+	{
+		j = 0;
+		while (j < map->y)
+		{
+			if (i < map->x - 1)
+				fdf_draw_ln(map, map->tab[i][j], map->tab[i + 1][j]);
+			if (j < map->y - 1)
+				fdf_draw_ln(map, map->tab[i][j], map->tab[i][j + 1]);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	fdf_draw_ln(t_map *map, t_cord cordinate1, t_cord cordinate2)
 {
 	t_line line;
 
-	line = line_param(cordinate1, cordinate2);
+	line = cord_line_param(cordinate1, cordinate2);
 	while (1)
 	{
-		make_pxl(line, &(map->img));
+		fdf_make_pxl(line, &(map->img));
 		if (line.x1 == line.x2 && line.y1 == line.y2)
 			break ;
 		line.err2 = line.err * 2;
@@ -36,7 +57,7 @@ void	draw_ln(t_map *map, t_cord cordinate1, t_cord cordinate2)
 	}
 }
 
-t_line	line_param(t_cord x_1 , t_cord x_2)
+t_line	cord_line_param(t_cord x_1, t_cord x_2)
 {
 	t_line line;
 
@@ -53,15 +74,14 @@ t_line	line_param(t_cord x_1 , t_cord x_2)
 	return (line);
 }
 
-void	make_pxl(t_line line, t_img *img)
+void	fdf_make_pxl(t_line line, t_img *img)
 {
 	int	size;
 	int	byte;
 
 	size = 4 * WD * HG;
 	byte = (line.y1) * img->size + (line.x1) * 4;
-
-	if ( byte <= 0 || byte >= size || line.x1 > WD - 1 || line.x1 < 0)
+	if (byte <= 0 || byte >= size || line.x1 > WD - 1 || line.x1 < 0)
 		return ;
 	img->data[byte] = line.clr;
 	img->data[++byte] = line.clr >> 8;

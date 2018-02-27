@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rfile.c                                            :+:      :+:    :+:   */
+/*   fdf_readfile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avishnev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-int		size_fill(char *field)
+int				size_of_map(char *field)
 {
 	int		fd;
 	char	*str;
@@ -30,14 +30,14 @@ int		size_fill(char *field)
 	return (i);
 }
 
-char 	**read_file(char *field)
+char			**read_file(char *field)
 {
 	char	**buff;
 	int		fd;
 	int		size;
 	int		i;
 
-	size = size_fill(field);
+	size = size_of_map(field);
 	i = 0;
 	fd = open(field, O_RDONLY);
 	if (read(fd, field, 0) < 0)
@@ -52,7 +52,7 @@ char 	**read_file(char *field)
 	return (buff);
 }
 
-static void free_tab(t_map *map)
+static void		free_tab(t_map *map)
 {
 	size_t	i;
 	size_t	j;
@@ -63,17 +63,17 @@ static void free_tab(t_map *map)
 		j = 0;
 		while (j < map->y)
 		{
-			MATRIX_.x = 0;
-			MATRIX_.y = 0;
-			MATRIX_.z = 0;
-			MATRIX_.col = 0;
+			_MATRIX_.x = 0;
+			_MATRIX_.y = 0;
+			_MATRIX_.z = 0;
+			_MATRIX_.col = 0;
 			j++;
 		}
 		i++;
 	}
 }
 
-void	free_data(t_map *map)
+void			free_data(t_map *map)
 {
 	size_t	i;
 	size_t	j;
@@ -85,11 +85,15 @@ void	free_data(t_map *map)
 		while (j < map->y)
 		{
 			free_tab(map);
-			j++; 
+			j++;
 		}
 		i++;
 	}
 }
 
-
-
+void			image_init(t_map *store)
+{
+	store->img.point = mlx_new_image(store->mlx, WD, HG);
+	store->img.data = mlx_get_data_addr(store->img.point,
+				&(store->img.bits), &(store->img.size), &(store->img.end));
+}

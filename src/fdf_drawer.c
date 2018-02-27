@@ -12,39 +12,23 @@
 
 #include "fdf.h"
 
-void	create_window(t_map *src)
+void	fdf_create_window(t_map *src)
 {
 	src->mlx = mlx_init();
 	if (src->win)
 		mlx_clear_window(src->mlx, src->win);
 	src->win = mlx_new_window(src->mlx, WD, HG, "Fdf");
-
 }
 
-void	fdf_brezenham(t_map *map)
+int		fdf_redr_f(t_map *map)
 {
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (i < map->x)
-	{
-		j = 0;
-		while (j < map->y)
-		{
-			if (i < map->x - 1)
-				draw_ln(map, map->tab[i][j], map->tab[i + 1][j]);
-			if (j < map->y - 1)
-				draw_ln(map, map->tab[i][j], map->tab[i][j + 1]);
-			j++;
-		}
-		i++;
-	}
+	fdf_redraw_image(map, 0);
+	return (0);
 }
 
 void	fdf_draw_img(t_map *src)
 {
-	init_image(src);
+	image_init(src);
 	fdf_brezenham(src);
 	mlx_put_image_to_window(src->mlx, src->win, src->img.point, 0, 0);
 }
@@ -66,7 +50,7 @@ void	fdf_info(t_map *map, int key, int flag)
 	mlx_string_put(map->mlx, map->win, 115, 70, text_color, info);
 	mlx_string_put(map->mlx, map->win, 115, 90, text_color, "+/- ZOOM");
 	mlx_string_put(map->mlx, map->win, 115, 110, text_color, "ESC to exit");
-	info = "I/O Disko mod |8-) C - set default";
+	info = "I/O Disko mod O_o C - heigt color   V- set default";
 	mlx_string_put(map->mlx, map->win, 115, 130, text_color, info);
 	info = "S show this message";
 	mlx_string_put(map->mlx, map->win, 115, 150, text_color, info);
@@ -74,10 +58,10 @@ void	fdf_info(t_map *map, int key, int flag)
 
 void	fdf_redraw_image(t_map *src, int key)
 {
-	static	int 	flag;
+	static	int		flag;
 
 	mlx_clear_window(src->mlx, src->win);
-	init_image(src);
+	image_init(src);
 	fdf_draw_img(src);
 	mlx_destroy_image(src->mlx, src->img.point);
 	if (flag == 0)
@@ -88,20 +72,3 @@ void	fdf_redraw_image(t_map *src, int key)
 	if (key == 4 || key == 1)
 		fdf_info(src, key, flag);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

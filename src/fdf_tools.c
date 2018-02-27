@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   fdf_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avishnev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-size_t		cnt_rows(char **s)
+size_t		get_value_x(char **s)
 {
 	size_t	x;
 
@@ -22,11 +22,11 @@ size_t		cnt_rows(char **s)
 	return (x);
 }
 
-size_t		cnt_clms(char *s)
+size_t		get_value_y(char *s)
 {
-	char 	**tmp;
+	char	**tmp;
 	size_t	y;
-	
+
 	tmp = ft_split_arr(s, ' ');
 	y = 0;
 	while (tmp[y])
@@ -38,18 +38,20 @@ size_t		cnt_clms(char *s)
 	return (y);
 }
 
-int	check_size(char **s)
+int			check_size(char **s)
 {
 	size_t	i;
 	size_t	s0;
 	size_t	s1;
 
 	i = 1;
-	s0 = cnt_clms(s[0]);
+	if (!*s)
+		return (1);
+	s0 = get_value_y(s[0]);
 	s1 = s0;
 	while (s[i])
 	{
-		s1 = cnt_clms(s[i]);
+		s1 = get_value_y(s[i]);
 		if (s1 < s0)
 			return (1);
 		i++;
@@ -57,7 +59,7 @@ int	check_size(char **s)
 	return (0);
 }
 
-int 	check_store(char **s)
+int			check_store(char **s)
 {
 	size_t	i;
 	size_t	j;
@@ -72,23 +74,18 @@ int 	check_store(char **s)
 				j++;
 			if (ft_isdigit(s[i][j]))
 				j++;
-			if (s[i][j] == '\0' && ((s[i][j - 1] == '\n') || ft_isdigit(s[i][j - 1])))
+			if (s[i][j] == '\0' && ((s[i][j - 1] == '\n') ||
+				ft_isdigit(s[i][j - 1])))
 				return (0);
 			j++;
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
-void	valide(char **s)
+
+void		valide(char **s)
 {
 	if (check_size(s) || check_store(s))
 		map_error();
-}
-
-void	init_image(t_map *store)
-{
-	store->img.point = mlx_new_image(store->mlx, WD, HG);
-	store->img.data = mlx_get_data_addr(store->img.point, 
-						&(store->img.bits), &(store->img.size), &(store->img.end));
 }

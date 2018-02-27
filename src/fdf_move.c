@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   fdf_move.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avishnev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -24,7 +24,7 @@ void	image_move_abs(t_map *map, int step, int key)
 		j = 0;
 		while (j < map->y)
 		{
-			MATRIX_.x += step;
+			_MATRIX_.x += step;
 			j++;
 		}
 		i++;
@@ -42,21 +42,21 @@ void	image_move_ord(t_map *map, int step, int key)
 	{
 		j = 0;
 		while (j < map->y)
-		{	
-			MATRIX_.y += step;
+		{
+			_MATRIX_.y += step;
 			j++;
 		}
 		i++;
 	}
 }
 
-void	move_mid(t_map *map)
+void	image_move_mid(t_map *map)
 {
 	size_t	i;
 	size_t	j;
 
-	j = HG / 2 - MATRIX_MID_->y;
-	i = WD / 2 - MATRIX_MID_->x;
+	j = HG / 2 - _MATRIX_MID_->y;
+	i = WD / 2 - _MATRIX_MID_->x;
 	image_move_abs(map, j, 124);
 	image_move_ord(map, i, 125);
 }

@@ -18,21 +18,16 @@ t_map			*map_alloc(size_t x, size_t y)
 	size_t		i;
 
 	i = 0;
-	if (!(map = (t_map *)malloc(sizeof(t_map))))
-		return (NULL);
-	ft_bzero(map, (sizeof(t_map)));
+	map = (t_map *)ft_memalloc(sizeof(t_map));
 	map->x = x;
 	map->y = y;
-	if (!(map->tab = (t_cord **)malloc(sizeof(t_cord *) * x)))
-		return (NULL);
-	ft_bzero(map->tab, (sizeof(t_cord *) * x));
+	map->tab = (t_cord **)ft_memalloc(sizeof(t_cord *) * x);
 	while (i < x)
 	{
-		if (!(map->tab[i] = (t_cord*)malloc(sizeof(t_cord) * y)))
-			return (NULL);
-		ft_bzero(map->tab[i], (sizeof(t_cord) * x));
+		map->tab[i] = (t_cord*)ft_memalloc(sizeof(t_cord) * y);
 		i++;
 	}
+	map->mid = (t_cord *)ft_memalloc(sizeof(t_cord));
 	return (map);
 }
 
@@ -52,7 +47,7 @@ t_map			*create_map(char **field, size_t x, size_t y)
 		free(field[i]);
 		while (j < y)
 		{
-			MATRIX_ = cord_new_cord(buff[j], i, j);
+			_MATRIX_ = cord_new_cordinate(buff[j], i, j);
 			free(buff[j]);
 			j++;
 		}

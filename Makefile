@@ -23,6 +23,7 @@ $(NAME):
 	@echo "<<<<<<<<<<<<<<<<--FDF_COMPILED-->>>>>>>>>>>>>>>>"
 norm:
 	@norminette ./src/
+	@norminette ./includes/
 clean:
 	@make -C $(LIB) clean --silent
 	@echo "<<<<<<<<<<<<<<<<--Succes-->>>>>>>>>>>>>>>>"
