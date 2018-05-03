@@ -1,2 +1,3 @@
 # FDF
-fdf
+Landscape creator for HighSiera. Using OpenGL
+
